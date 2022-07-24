@@ -1,6 +1,6 @@
 #  Copyright (c) 2020. Lena "Teekeks" During <info@teawork.de>
 """Type Definitions"""
-
+from dataclasses import dataclass
 from enum import Enum
 from typing_extensions import TypedDict
 
@@ -51,7 +51,7 @@ class AuthScope(Enum):
     CHANNEL_MANAGE_PREDICTIONS = 'channel:manage:predictions'
     MODERATOR_MANAGE_AUTOMOD = 'moderator:manage:automod'
     CHANNEL_MANAGE_SCHEDULE = 'channel:manage:schedule'
-    CHANNEL_MANAGE_CHAT_SETTINGS = 'moderator:manage:chat_settings'
+    MODERATOR_MANAGE_CHAT_SETTINGS = 'moderator:manage:chat_settings'
     MODERATOR_MANAGE_BANNED_USERS = 'moderator:manage:banned_users'
     MODERATOR_READ_BLOCKED_TERMS = 'moderator:read:blocked_terms'
     MODERATOR_MANAGE_BLOCKED_TERMS = 'moderator:manage:blocked_terms'
@@ -208,6 +208,25 @@ class AutoModCheckEntry(TypedDict):
     """Message text"""
     user_id: str
     """User ID of the sender"""
+
+
+# CHAT
+
+class ChatEvent(Enum):
+    READY = 'ready'
+    MESSAGE = 'message'
+
+
+@dataclass
+class ChatRoom:
+    name: str
+    is_emote_only: bool
+    is_subs_only: bool
+    is_followers_only: bool
+    is_unique_only: bool
+    follower_only_delay: int
+    room_id: str
+    slow: int
 
 
 # EXCEPTIONS
